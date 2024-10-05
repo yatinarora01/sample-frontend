@@ -3,19 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frontend on GitHub Pages</title>
+    <title>Call Backend Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #response {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello from GitHub Pages Frontend!</h1>
-    <button onclick="fetchBackend()">Call Backend</button>
-    <div id="backendResponse"></div>
+
+    <h1>Call Backend Example</h1>
+    <button id="callBackendBtn">Call Backend</button>
+    <div id="response"></div>
 
     <script>
-      async function fetchBackend() {
-        const response = await fetch('https://sample-backend-production-8168.up.railway.app');
-        const text = await response.text();
-        document.getElementById('backendResponse').innerText = text;
-      }
+        document.getElementById('callBackendBtn').addEventListener('click', function() {
+            fetch('https://sample-backend-production-8168.up.railway.app')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json(); // Assuming your backend returns JSON
+                })
+                .then(data => {
+                    // Display the response data on the page
+                    document.getElementById('response').innerText = JSON.stringify(data);
+                })
+                .catch(error => {
+                    document.getElementById('response').innerText = 'Error: ' + error.message;
+                });
+        });
     </script>
+
 </body>
 </html>
