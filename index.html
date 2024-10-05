@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Billing</title>
+</head>
+
+<body>
+    <h1>Product Billing System</h1>
+    <form id="productForm">
+        <input type="text" id="productName" placeholder="Product Name" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('productForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const productName = document.getElementById('productName').value;
+            const responseDiv = document.getElementById('response');
+
+            try {
+                const response = await fetch('https://sample-backend-production-8168.up.railway.app/product', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name: productName })
+                });
+
+                const result = await response.text();
+                responseDiv.innerHTML = result;
+            } catch (error) {
+                responseDiv.innerHTML = 'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+
+</html>
