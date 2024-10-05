@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend on GitHub Pages</title>
+</head>
+<body>
+    <h1>Hello from GitHub Pages Frontend!</h1>
+    <button onclick="fetchBackend()">Call Backend</button>
+    <div id="backendResponse"></div>
+
+    <script>
+      async function fetchBackend() {
+        const response = await fetch('<your-railway-backend-url>');
+        const text = await response.text();
+        document.getElementById('backendResponse').innerText = text;
+      }
+    </script>
+</body>
+</html>
